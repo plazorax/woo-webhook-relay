@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<ruleset name="woo-webhook-relay">
+	<description>WordPress-Extra with a documented set of exclusions (see docs/development.md).</description>
+
+	<file>woo-webhook-relay.php</file>
+	<file>uninstall.php</file>
+	<file>src</file>
+	<file>tests</file>
+
+	<arg name="extensions" value="php"/>
+	<arg name="colors"/>
+	<arg value="sp"/>
+
+	<config name="minimum_wp_version" value="6.4"/>
+
+	<rule ref="WordPress-Extra">
+		<!-- PSR-4 file names (src/Delivery/Signer.php) instead of class-signer.php. -->
+		<exclude name="WordPress.Files.FileName"/>
+		<!-- Short array syntax, as in WooCommerce's own src/ directory. -->
+		<exclude name="Universal.Arrays.DisallowShortArraySyntax"/>
+	</rule>
+
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="woo-webhook-relay"/>
+			</property>
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="woo_webhook_relay"/>
+				<element value="WooWebhookRelay"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- PHPUnit requires camelCase setUp()/tearDown(), and tests declare fakes that are not WordPress code. -->
+	<rule ref="WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid">
+		<exclude-pattern>tests/*</exclude-pattern>
+	</rule>
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<exclude-pattern>tests/*</exclude-pattern>
+	</rule>
+	<rule ref="Generic.Files.OneObjectStructurePerFile">
+		<exclude-pattern>tests/*</exclude-pattern>
+	</rule>
+</ruleset>
