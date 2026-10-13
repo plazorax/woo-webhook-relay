@@ -1,4 +1,4 @@
-# woo-webhook-relay
+# Woo Webhook Relay
 
 ![CI](https://github.com/plazorax/woo-webhook-relay/actions/workflows/ci.yml/badge.svg)
 
